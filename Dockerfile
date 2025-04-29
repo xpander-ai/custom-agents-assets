@@ -25,7 +25,7 @@ RUN apk add --no-cache \
     wget
 
 # Install Node.js 22 manually
-RUN NODE_VERSION=22.0.0 && \
+RUN NODE_VERSION=22.15.0 && \
     ARCH=linux-x64 && \
     wget https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-$ARCH.tar.xz && \
     tar -xf node-v$NODE_VERSION-$ARCH.tar.xz && \
