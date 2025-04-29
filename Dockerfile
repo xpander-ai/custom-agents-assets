@@ -8,10 +8,10 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 # Set working directory
 WORKDIR /usr/src/app
 
-# Install base dependencies
+# Install dependencies
 RUN apk add --no-cache \
-    bash \
     curl \
+    bash \
     gcc \
     g++ \
     libffi-dev \
@@ -19,23 +19,9 @@ RUN apk add --no-cache \
     openssl-dev \
     make \
     python3-dev \
-    rust \
-    cargo \
     npm \
-    wget
-
-# Install Node.js 22 manually
-RUN NODE_VERSION=22.15.0 && \
-    ARCH=linux-x64 && \
-    wget https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-$ARCH.tar.xz && \
-    tar -xf node-v$NODE_VERSION-$ARCH.tar.xz && \
-    mv node-v$NODE_VERSION-$ARCH /usr/local/node && \
-    ln -s /usr/local/node/bin/node /usr/local/bin/node && \
-    ln -s /usr/local/node/bin/npm /usr/local/bin/npm && \
-    ln -s /usr/local/node/bin/npx /usr/local/bin/npx
-
-# Check versions
-RUN node -v && npm -v
+    rust \
+    cargo
 
 # Create and activate virtualenv
 RUN python3 -m venv $VIRTUAL_ENV
@@ -47,5 +33,8 @@ COPY . .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Run your app
+# Install Node.js 18
+RUN apk add --no-cache nodejs-current npm
+
+# Run your main.py script (adjust path if needed)
 CMD ["python", "xpander_handler.py"]
