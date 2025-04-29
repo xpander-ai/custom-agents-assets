@@ -32,8 +32,12 @@ def on_execution_request(execution_task: AgentExecution) -> AgentExecutionResult
     # Example: Extracting a specific input field
     # user_input = execution_task.input.get("user_prompt", "")
     
+    # initialize the agent with task
+    agent.init_task(execution=execution_task.model_dump()) 
+    
     # TODO: Add your execution logic here
-    return AgentExecutionResult(result="Execution completed successfully.")
+    
+    return AgentExecutionResult(result="Your execution result")
 
 # === Register Callback ===
 # Attach your custom handler to the listener
