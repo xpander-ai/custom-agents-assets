@@ -33,7 +33,7 @@ COPY . .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Install Node.js 18
+# Install Node.js LTS
 RUN apk add --no-cache nodejs-current npm
 
 # Run your main.py script (adjust path if needed)
