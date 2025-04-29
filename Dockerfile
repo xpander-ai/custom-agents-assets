@@ -21,7 +21,8 @@ RUN apk add --no-cache \
     python3-dev \
     npm \
     rust \
-    cargo
+    cargo \
+    git
 
 # Create and activate virtualenv
 RUN python3 -m venv $VIRTUAL_ENV
