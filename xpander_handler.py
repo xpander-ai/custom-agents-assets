@@ -1,5 +1,5 @@
 import json
-from xpander_utils.events import XpanderEventListener, AgentExecutionResult, AgentExecution
+from xpander_utils.events import XpanderEventListener, AgentExecutionResult, AgentExecution, ExecutionStatus
 from xpander_sdk import XpanderClient
 
 # === Load Configuration ===
@@ -13,9 +13,6 @@ listener = XpanderEventListener(**xpander_config)
 
 # initialize xpander_client
 xpander = XpanderClient(api_key=xpander_config.get("api_key"))
-
-# initialize agent instance
-agent = xpander.agents.get(agent_id=xpander_config.get("agent_id"))
 
 # === Define Execution Handler ===
 def on_execution_request(execution_task: AgentExecution) -> AgentExecutionResult:
@@ -31,6 +28,9 @@ def on_execution_request(execution_task: AgentExecution) -> AgentExecutionResult
     # You can access the execution input via `execution_task.input`
     # Example: Extracting a specific input field
     # user_input = execution_task.input.get("user_prompt", "")
+    
+    # initialize agent instance
+    agent = xpander.agents.get(agent_id=xpander_config.get("agent_id"))
     
     # initialize the agent with task
     agent.init_task(execution=execution_task.model_dump()) 
