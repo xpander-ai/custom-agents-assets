@@ -1,7 +1,7 @@
 import json
 from xpander_utils.events import XpanderEventListener, AgentExecutionResult, AgentExecution, ExecutionStatus
 from xpander_sdk import XpanderClient
-
+from loguru import logger
 # === Load Configuration ===
 # Reads API credentials and organization context from a local JSON file
 with open('xpander_config.json', 'r') as config_file:
@@ -25,19 +25,27 @@ def on_execution_request(execution_task: AgentExecution) -> AgentExecutionResult
     Returns:
         AgentExecutionResult: Object describing the output of the execution.
     """
-    # You can access the execution input via `execution_task.input`
-    # Example: Extracting a specific input field
-    # user_input = execution_task.input.get("user_prompt", "")
     
-    # initialize agent instance
-    agent = xpander.agents.get(agent_id=xpander_config.get("agent_id"))
+    IncomingEvent = (
+            f"\n📨 Incoming message: {execution_task.input.text} \n"
+            f"👤 From user: {execution_task.input.user.first_name} {execution_task.input.user.last_name} \n"
+            f"📧 Email: {execution_task.input.user.email}" 
+        )
+    # print the incoming event (Delete this after testing)
+    logger.info(IncomingEvent)
     
-    # initialize the agent with task
-    agent.init_task(execution=execution_task.model_dump()) 
+    # initialize agent backend instance
+    agent_backend = xpander.agents.get(agent_id=xpander_config.get("agent_id"))
+    
+    # initialize the agent backend with the execution task state
+    agent_backend.init_task(execution=execution_task.model_dump()) 
     
     # TODO: Add your execution logic here
     
-    return AgentExecutionResult(result="Your execution result")
+    result = f"Hi {execution_task.input.user.first_name}"
+    logger.info(f"Agent result: {result}")
+    
+    return AgentExecutionResult(is_success=True, result=result)
 
 # === Register Callback ===
 # Attach your custom handler to the listener

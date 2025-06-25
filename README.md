@@ -1,8 +1,3 @@
-Got it — you want a professional, clean `README.md` for the **Custom Agents Assets** repo, explaining that it’s the initial structure to be cloned into users' agents.  
-Here’s a first draft you can put directly into your `README.md`:
-
----
-
 # Custom Agents Assets
 
 This repository provides the **initial infrastructure** for custom agents built on top of the xpander.ai platform.
