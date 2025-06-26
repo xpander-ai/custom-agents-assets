@@ -64,7 +64,7 @@ if __name__ == "__main__":
             api_key=xpander_cfg["api_key"]
         )
 
-        async with AgnoAgentWithBackend(xpander_backend) as agno_agent_with_backend:
+        async with myAgent(xpander_backend) as agno_agent_with_backend:
             while True:
                 message = input("Enter a message (type 'exit' to quit): ")
                 if message == "exit":
