@@ -24,14 +24,17 @@ This template provides a foundation for building AI agents using the [Agno frame
 ### Local Development
 
 1. **Install Dependencies**:
+
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate
    pip install -r requirements.txt
    ```
+
 ### Xpander Platform Integration
 
 1. **Initialize in your project**:
+
    ```bash
    npm install -g xpander-cli
    xpander login
@@ -40,11 +43,21 @@ This template provides a foundation for building AI agents using the [Agno frame
    ```
 
 2. **Run the agent**
-   ```
+
+   ```bash
    python my_agent.py
    ```
 
-3. **Deploy to Xpander**:
+3. Test it locally
+
+```bash
+docker build . -t my-agent && docker run my agent
+## add --env-file .env to load the secrets
+## use the cli to sync the .env file to xpander.ai with xpander secrets-sync 
+```
+
+4. **Deploy to Xpander**:
+
    ```bash
    xpander deploy
    ```
@@ -64,7 +77,7 @@ Update `agent_instructions.json` to customize your agent's behavior:
         "Maintain simplicity in all interactions",
         "Help users with basic tasks and questions"
     ],
-    "system_prompt": "You are a simple and friendly AI assistant running with Agno Framework and xpander.ai Backend!."
+    "general": "You are a simple and friendly AI assistant running with Agno Framework and xpander.ai Backend!."
 }
 ```
 
@@ -87,6 +100,5 @@ OPENAI_API_KEY=your_openai_api_key
 ## Notes
 
 - Ensure you have Python 3.9+ installed
-- The agent uses GPT-4o by default, but can be configured for other models
-- For production deployment, review and update the Dockerfile as needed
+- The agent uses GPT-4.1 by default, but can be configured for other models
 - The template includes thinking tools for enhanced reasoning capabilities
