@@ -12,8 +12,6 @@ with open('xpander_config.json', 'r') as config_file:
 # Create a listener to subscribe to execution requests from specified agent(s)
 listener = XpanderEventListener(**xpander_config)
 
-my_agent = MyAgent()
-
 # === Define Execution Handler ===
 
 
@@ -27,7 +25,8 @@ async def on_execution_request(execution_task: AgentExecution) -> AgentExecution
     Returns:
         AgentExecutionResult: Object describing the output of the execution.
     """
-
+    my_agent = MyAgent()
+    
     user_info = ""
     user = getattr(execution_task.input, "user", None)
 
