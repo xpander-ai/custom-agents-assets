@@ -1,2 +1,4 @@
 xpander-sdk
 xpander-utils
+openai
+python-dotenv
