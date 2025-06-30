@@ -28,15 +28,22 @@ async def on_execution_request(execution_task: AgentExecution) -> AgentExecution
         AgentExecutionResult: Object describing the output of the execution.
     """
 
+    user_info = ""
+    user = getattr(execution_task.input, "user", None)
+
+    if user:
+        name = f"{user.first_name} {user.last_name}".strip()
+        email = getattr(user, "email", "")
+        user_info = f"👤 From user: {name}\n📧 Email: {email}"
+
     IncomingEvent = (
-        f"\n📨 Incoming message: {execution_task.input.text} \n"
-        f"👤 From user: {execution_task.input.user.first_name} {execution_task.input.user.last_name} \n"
-        f"📧 Email: {execution_task.input.user.email}"
+        f"\n📨 Incoming message: {execution_task.input.text}\n"
+        f"{user_info}"
     )
     # print the incoming event (Delete this after testing)
     logger.info(IncomingEvent)
 
-    await my_agent.run(execution_task.input.text)
+    await my_agent.run(execution_task)
     execution_result = my_agent.agent_backend.retrieve_execution_result()
 
     logger.info(f"Agent result: {execution_result.result}")

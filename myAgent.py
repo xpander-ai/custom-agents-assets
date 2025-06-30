@@ -9,6 +9,7 @@ import sys
 import time
 from pathlib import Path
 from xpander_sdk import XpanderClient, LLMProvider, LLMTokens, Tokens, Agent
+from xpander_utils.events import AgentExecution
 from openai import AsyncOpenAI
 from dotenv import load_dotenv
 from loguru import logger
@@ -50,9 +51,9 @@ class MyAgent:
             logger.info(f"   e.g. \"{self.agent_backend.prompts[0]}\"")
         logger.info("✅ Ready!")
 
-    async def run(self, task: str) -> dict:
-        logger.info(f"📝 Task: {task}")
-        self.agent_backend.add_task(input=task)
+    async def run(self, task: AgentExecution) -> dict:
+        logger.info(f"📝 Task: {task.input.text}")
+        self.agent_backend.init_task(execution=task.model_dump())
 
         step = 0
         start_time = time.perf_counter()
