@@ -26,7 +26,7 @@ async def on_execution_request(execution_task: AgentExecution) -> AgentExecution
         AgentExecutionResult: Object describing the output of the execution.
     """
     my_agent = MyAgent()
-    
+
     user_info = ""
     user = getattr(execution_task.input, "user", None)
 
@@ -39,14 +39,21 @@ async def on_execution_request(execution_task: AgentExecution) -> AgentExecution
         f"\n📨 Incoming message: {execution_task.input.text}\n"
         f"{user_info}"
     )
+
     # print the incoming event (Delete this after testing)
     logger.info(IncomingEvent)
+    my_agent.agent_backend.init_task(execution=execution_task.model_dump())
 
-    await my_agent.run(execution_task)
+    # extract just the text input for quick start purpose. for more robust use the object
+    user_txt_input = execution_task.input.text
+    await my_agent.run(user_txt_input)
+
+    # extract the task result from the backend
     execution_result = my_agent.agent_backend.retrieve_execution_result()
 
     logger.info(f"Agent result: {execution_result.result}")
 
+    # report back to the backend the status, you can customize it as you want
     return AgentExecutionResult(
         result=execution_result.result,
         is_success=execution_result.status == ExecutionStatus.COMPLETED,

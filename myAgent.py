@@ -9,7 +9,6 @@ import sys
 import time
 from pathlib import Path
 from xpander_sdk import XpanderClient, LLMProvider, LLMTokens, Tokens, Agent
-from xpander_utils.events import AgentExecution
 from openai import AsyncOpenAI
 from dotenv import load_dotenv
 from loguru import logger
@@ -51,10 +50,8 @@ class MyAgent:
             logger.info(f"   e.g. \"{self.agent_backend.prompts[0]}\"")
         logger.info("✅ Ready!")
 
-    async def run(self, task: AgentExecution) -> dict:
-        logger.info(f"📝 Task: {task.input.text}")
-        self.agent_backend.init_task(execution=task.model_dump())
-
+    async def run(self, user_txt_input: str) -> dict:
+        logger.info(f"📝 user_input: {user_txt_input}")
         step = 0
         start_time = time.perf_counter()
         tokens = Tokens(worker=LLMTokens(0, 0, 0))
@@ -108,7 +105,13 @@ class MyAgent:
 if __name__ == "__main__":
     async def main():
         agent = MyAgent()
-        result = await agent.run("Hi!")
-        print(f"\n{result['result']}")
+
+        while True:
+            task = input("\nAsk Anything (Type exit to end) \nInput: ")
+            if task.lower() == "exit":
+                break
+            agent.agent_backend.add_task(input=task)
+            result = await agent.run(task)
+            logger.info(f"🤖 : {result['result']}")
 
     asyncio.run(main())
