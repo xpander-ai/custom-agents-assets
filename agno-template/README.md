@@ -12,12 +12,11 @@ This template provides a foundation for building AI agents using the [Agno frame
 
 ## Files Structure
 
-- `agno_agent.py` - Standalone Agno agent implementation for testing
-- `agno_agent_with_backend.py` - Agno agent integrated with Xpander backend
 - `xpander_handler.py` - WebSocket event handler for Xpander platform
-- `agent_instructions.json` - Agent behavior and goal configuration
 - `requirements.txt` - Python dependencies
 - `Dockerfile` - Container deployment configuration
+- `.env.example` - Template for environment variables
+- `.dockerignore` - Docker ignore file
 
 ## Getting Started
 
@@ -45,16 +44,16 @@ This template provides a foundation for building AI agents using the [Agno frame
 2. **Run the agent**
 
    ```bash
-   python my_agent.py
+   python xpander_handler.py
    ```
 
-3. Test it locally
+3. **Test it locally**
 
-```bash
-docker build . -t my-agent && docker run my agent
-## add --env-file .env to load the secrets
-## use the cli to sync the .env file to xpander.ai with xpander secrets-sync 
-```
+   ```bash
+   docker build . -t my-agent && docker run my-agent
+   # add --env-file .env to load the secrets
+   # use the cli to sync the .env file to xpander.ai with xpander secrets-sync
+   ```
 
 4. **Deploy to Xpander**:
 
@@ -62,43 +61,30 @@ docker build . -t my-agent && docker run my agent
    xpander deploy
    ```
 
-### Modifying Instructions
-
-Update `agent_instructions.json` to customize your agent's behavior:
-
-```json
-{
-    "role": [
-        "Always respond in markdown format",
-        "Be friendly and approachable"
-    ],
-    "goal": [
-        "Provide general assistance for any user request",
-        "Maintain simplicity in all interactions",
-        "Help users with basic tasks and questions"
-    ],
-    "general": "You are a simple and friendly AI assistant running with Agno Framework and xpander.ai Backend!."
-}
-```
-
 ### Environment Variables
 
-Create a `.env` file for local development:
+Create a `.env` file for local development based on `.env.example`:
 
 ```env
-OPENAI_API_KEY=your_openai_api_key
-# Add other environment variables as needed
+XPANDER_API_KEY="{YOUR_API_KEY}"
+XPANDER_ORGANIZATION_ID="{YOUR_ORGANIZATION_ID}"
+XPANDER_AGENT_ID="{YOUR_XPANDER_AGENT_ID}"
+ANTHROPIC_API_KEY="{YOUR_ANTHROPIC_API_KEY_IF_USING_ANTHROPIC}"
+OPENAI_API_KEY="{YOUR_OPENAI_API_KEY_IF_USING_OPENAI}"
 ```
 
 ## Dependencies
 
-- **agno**: Core AI agent framework
-- **xpander-utils**: Xpander platform utilities and adapters
+- **agno[all]**: Core AI agent framework with all features
+- **xpander-sdk[agno]**: Xpander platform SDK with Agno integration
 - **openai**: OpenAI API integration
+- **anthropic**: Anthropic API integration
+- **mcp**: Model Context Protocol support
 - **python-dotenv**: Environment variable management
 
 ## Notes
 
-- Ensure you have Python 3.9+ installed
-- The agent uses GPT-4.1 by default, but can be configured for other models
-- The template includes thinking tools for enhanced reasoning capabilities
+- Ensure you have Python 3.12+ installed
+- The template supports multiple AI providers (OpenAI, Anthropic)
+- Uses Alpine-based Docker image for lightweight deployment
+- Includes MCP (Model Context Protocol) support

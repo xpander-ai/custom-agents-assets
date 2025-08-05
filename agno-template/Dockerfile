@@ -35,5 +35,9 @@ ENV PATH="/usr/src/app/.venv/bin:$PATH"
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
+# Install Node.js (for local mcps)
+RUN curl -sL https://deb.nodesource.com/setup_22.x | bash -
+RUN apt-get install -y nodejs
+
 # Run the xpander handler
 CMD ["python", "xpander_handler.py"]

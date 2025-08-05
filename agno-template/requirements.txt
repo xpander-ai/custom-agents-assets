@@ -1,4 +1,6 @@
-xpander-utils
-agno
+python-dotenv
+agno[all]
+xpander-sdk[agno]
 openai
-xpander-sdk
+anthropic
+mcp
