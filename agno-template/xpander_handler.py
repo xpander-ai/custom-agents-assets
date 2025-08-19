@@ -15,7 +15,7 @@ async def my_agent_handler(task: Task):
     
     # in case of structured output, return as stringified json
     if task.output_format == OutputFormat.Json and isinstance(result.content, BaseModel):
-        task.result = result.content.model_dump_json()
-    else:
-        task.result = result.content
+        result.content = result.content.model_dump_json()
+    
+    task.result = result.content
     return task
