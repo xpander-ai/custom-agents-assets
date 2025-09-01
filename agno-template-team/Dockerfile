@@ -35,5 +35,10 @@ ENV PATH="/usr/src/app/.venv/bin:$PATH"
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
+# Install UV package manager (includes uvx)
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
+RUN sh /uv-installer.sh && rm /uv-installer.sh
+ENV PATH="/root/.local/bin:/venv/bin:$PATH"
+
 # Run the xpander handler
 CMD ["python", "xpander_handler.py"]
