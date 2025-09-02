@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-from xpander_sdk import Task, Backend, on_task, OutputFormat
+from xpander_sdk import Task, Backend, on_task, OutputFormat, Tokens
 from pydantic import BaseModel
 from agno.team import Team
 
@@ -18,4 +18,9 @@ async def my_agent_handler(task: Task):
         result.content = result.content.model_dump_json()
     
     task.result = result.content
+    
+    # report execution metrics
+    task.tokens = Tokens(prompt_tokens=sum(result.metrics['input_tokens']),completion_tokens=sum(result.metrics['completion_tokens']))
+    task.used_tools = [tool.tool_name for tool in result.tools]
+    
     return task
