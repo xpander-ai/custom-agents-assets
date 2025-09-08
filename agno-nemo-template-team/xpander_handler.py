@@ -8,6 +8,7 @@ from agno.team import Team
 
 @on_task
 async def my_agent_handler(task: Task):
+    print("NeMo")
     backend = Backend(configuration=task.configuration)
     agno_args = await backend.aget_args(task=task)
     agno_agent = Team(**agno_args)
