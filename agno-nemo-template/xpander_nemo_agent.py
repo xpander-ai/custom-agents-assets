@@ -33,13 +33,11 @@ async def xpander_nemo_agent_function(config: XpanderAgentConfig, builder: Build
             agno_agent = Agent(**agno_args)
             result = await agno_agent.arun(message=task.to_message())
             
-            print(result)
             # in case of structured output, return as stringified json
             if task.output_format == OutputFormat.Json and isinstance(result.content, BaseModel):
                 result.content = result.content.model_dump_json()
             
             task.result = result.content
-            print(task.result)
             
             # report execution metrics
             task.tokens = Tokens(prompt_tokens=sum(result.metrics['input_tokens']),completion_tokens=sum(result.metrics['completion_tokens']))
