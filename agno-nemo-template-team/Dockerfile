@@ -31,14 +31,11 @@ RUN python3 -m venv .venv
 # Add virtual environment to PATH
 ENV PATH="/usr/src/app/.venv/bin:$PATH"
 
-# Install Python dependencies
+# Install build dependencies and build the package
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
-
-# Install UV package manager (includes uvx)
-ADD https://astral.sh/uv/install.sh /uv-installer.sh
-RUN sh /uv-installer.sh && rm /uv-installer.sh
-ENV PATH="/root/.local/bin:/venv/bin:$PATH"
+    pip install --no-cache-dir build && \
+    python -m build && \
+    pip install --no-cache-dir -e .
 
 # Run the xpander handler
 CMD ["python", "xpander_handler.py"]
