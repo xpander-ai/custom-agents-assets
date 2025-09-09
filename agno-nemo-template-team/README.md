@@ -65,7 +65,7 @@ python xpander_handler.py
 
 4. **Test the installation**
    ```bash
-   nat run --config_file nemo_config.yml --input "Hello, test the agent setup"
+   nat run --config_file nemo_config.yml --input "Hello, what can you do?"
    ```
 
 ## Usage
