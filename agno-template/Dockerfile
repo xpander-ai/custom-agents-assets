@@ -33,7 +33,7 @@ ENV PATH="/usr/src/app/.venv/bin:$PATH"
 
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+    make install
 
 # Run the xpander handler
 CMD ["python", "xpander_handler.py"]

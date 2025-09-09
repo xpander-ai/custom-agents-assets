@@ -33,7 +33,7 @@ ENV PATH="/usr/src/app/.venv/bin:$PATH"
 
 # Install Python dependencies
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+    make install
 
 # Install UV package manager (includes uvx)
 ADD https://astral.sh/uv/install.sh /uv-installer.sh

@@ -1,4 +1,3 @@
-# One-command installation with automatic dependency conflict resolution
 install:
 	@echo "🚀 Installing xpander-nemo-agent..."
 	pip install build
