@@ -1,5 +1,5 @@
 python-dotenv
-agno[all]
+"agno[all]>=1.8.2,<2.0"
 xpander-sdk[agno]
 openai
 anthropic
