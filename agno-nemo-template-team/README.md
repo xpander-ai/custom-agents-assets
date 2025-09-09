@@ -45,6 +45,7 @@ python xpander_handler.py
 
 2. **Build and install the package**
    ```bash
+   pip install build
    python -m build
    pip install -e .
    ```
