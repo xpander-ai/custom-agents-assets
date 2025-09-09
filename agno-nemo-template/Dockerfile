@@ -1,26 +1,24 @@
-# Use Alpine-based Python image
-FROM python:3.12-alpine AS builder
+FROM python:3.12-slim AS builder
 
 # Set working directory
 WORKDIR /usr/src/app
 
-# Install dependencies (including Node.js and npm directly)
-RUN apk add --no-cache \
+# Install dependencies
+RUN apt-get update && apt-get install -y \
     curl \
     bash \
     gcc \
     g++ \
-    libffi-dev \
-    musl-dev \
-    openssl-dev \
     make \
     python3-dev \
-    rust \
-    cargo \
     git \
     nodejs \
     npm \
-    ca-certificates
+    ca-certificates \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 # Copy app files
 COPY . .
