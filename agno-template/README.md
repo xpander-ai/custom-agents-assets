@@ -27,7 +27,7 @@ This template provides a foundation for building AI agents using the [Agno frame
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate
-   pip install -r requirements.txt
+   make install
    ```
 
 ### Xpander Platform Integration
