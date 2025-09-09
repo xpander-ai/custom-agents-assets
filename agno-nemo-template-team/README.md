@@ -2,6 +2,21 @@
 
 This project integrates [xpander.ai](https://xpander.ai) agents with NVIDIA's NeMo Assistant Toolkit (NAT) and Agno framework, enabling sophisticated AI agent workflows with enterprise-grade LLM capabilities.
 
+## TL;DR - Quick Setup
+
+```bash
+# Clone and setup
+git clone <repository-url>
+cd nemo-tests-scaffold
+python -m venv .venv
+source .venv/bin/activate
+
+# One command to rule them all 🚀
+make install
+
+# Configure your API keys in .env and you're ready!
+```
+
 ## Overview
 
 The xpander.ai NeMo Agent bridges three powerful AI frameworks:
@@ -35,20 +50,36 @@ python xpander_handler.py
 
 ### Installation
 
+#### Quick Start (Recommended)
+
 1. **Clone and setup virtual environment**
    ```bash
    git clone <repository-url>
-   cd nemo-tests
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   cd nemo-tests-scaffold
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
 
-2. **Build and install the package**
+2. **One-command installation** 🚀
    ```bash
-   pip install build
-   python -m build
-   pip install -e .
+   make install
    ```
+   
+   This single command:
+   - Installs build dependencies
+   - Installs the package with automatic agno conflict resolution
+   - Shows you're ready to use the agent!
+
+#### Alternative Installation Method
+
+If you don't have `make` available, you can install manually:
+
+```bash
+pip install build
+pip install -e .
+```
+
+**Note**: The installation automatically resolves the agno version conflict between `nvidia-nat-agno` (requires agno~=1.2.3) and the required `agno>=1.8.2`. No additional steps needed!
 
 3. **Configure environment variables**
    ```bash

@@ -31,11 +31,9 @@ RUN python3 -m venv .venv
 # Add virtual environment to PATH
 ENV PATH="/usr/src/app/.venv/bin:$PATH"
 
-# Install build dependencies and build the package
+# Install using make install (handles agno conflict automatically)
 RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir build && \
-    python -m build && \
-    pip install --no-cache-dir -e .
+    make install
 
 # Run the xpander handler
 CMD ["python", "xpander_handler.py"]
