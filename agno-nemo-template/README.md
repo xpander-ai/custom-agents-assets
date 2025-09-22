@@ -79,7 +79,7 @@ pip install build
 pip install -e .
 ```
 
-**Note**: The installation automatically resolves the agno version conflict between `nvidia-nat-agno` (requires agno~=1.2.3) and the required `agno>=1.8.2,<2.0`. No additional steps needed!
+**Note**: The installation automatically resolves the agno version conflict between `nvidia-nat-agno` (requires agno~=1.2.3) and the required `agno`. No additional steps needed!
 
 3. **Configure environment variables**
    ```bash
