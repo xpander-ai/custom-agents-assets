@@ -31,7 +31,7 @@ async def xpander_nemo_agent_function(config: XpanderAgentConfig, builder: Build
             agno_args = await backend.aget_args(task=task,override={"model": llm})
             
             agno_agent = Team(**agno_args)
-            result = await agno_agent.arun(input=task.to_message())
+            result = await agno_agent.arun(input=task.to_message(),files=task.get_files(), images=task.get_images())
             
             # in case of structured output, return as stringified json
             if task.output_format == OutputFormat.Json and isinstance(result.content, BaseModel):
