@@ -20,7 +20,6 @@ RUN apk add --no-cache \
     git \
     nodejs \
     npm \
-    libpq \
     ca-certificates
 
 # Copy app files
