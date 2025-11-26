@@ -3,5 +3,6 @@ agno[all]
 xpander-sdk[agno]
 openai
 anthropic
+aioboto3
 mcp
 fireworks-ai
