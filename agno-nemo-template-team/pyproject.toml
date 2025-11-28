@@ -19,6 +19,8 @@ dependencies = [
     "loguru",
     "build",
     "fireworks-ai",
+    "aioboto3",
+    "google-genai",
     "litellm"
 ]
 

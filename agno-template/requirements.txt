@@ -6,3 +6,4 @@ anthropic
 aioboto3
 mcp
 fireworks-ai
+google-genai
