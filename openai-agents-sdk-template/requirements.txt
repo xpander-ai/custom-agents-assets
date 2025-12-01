@@ -1,4 +1,4 @@
 python-dotenv
-agents
+openai-agents
 xpander-sdk
 openai
