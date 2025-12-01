@@ -21,7 +21,7 @@ async def my_agent_handler(task: Task):
             model_id=xpander_agent.model_name
         ),
         description=xpander_agent.instructions.description,
-        system_prompt=xpander_agent.instructions.instructions,
+        system_prompt=xpander_agent.instructions.full,
         tools=xpander_agent.strands_tools,
     )
 

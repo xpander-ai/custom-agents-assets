@@ -4,7 +4,7 @@ load_dotenv()
 
 from xpander_sdk import Task, on_task, Agents, Configuration, OutputFormat, Tokens
 from pydantic import BaseModel
-from openai_agents import Agent, Runner
+from agents import Agent, Runner
 
 @on_task
 async def my_agent_handler(task: Task):
