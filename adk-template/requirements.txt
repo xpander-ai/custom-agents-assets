@@ -1,0 +1,6 @@
+python-dotenv
+google-genai
+google-adk
+xpander-sdk
+openai
+anthropic

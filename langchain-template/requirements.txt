@@ -1,0 +1,8 @@
+python-dotenv
+langchain
+langchain-openai
+langchain-anthropic
+langchain-core
+xpander-sdk
+openai
+anthropic
