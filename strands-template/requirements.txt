@@ -1,5 +1,5 @@
 python-dotenv
-strands
+strands-agents
 xpander-sdk
 openai
 anthropic
