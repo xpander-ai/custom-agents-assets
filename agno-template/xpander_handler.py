@@ -1,18 +1,17 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-from xpander_sdk import Task, on_task, Agents, OutputFormat, Tokens
+from xpander_sdk import Task, on_task, Backend, OutputFormat, Tokens
 from pydantic import BaseModel
 from agno.agent import Agent
-from agno.models.openai import OpenAIChat
 
 @on_task
 async def my_agent_handler(task: Task):
     # Get xpander agent details
-    xpander_agent = await Agents(configuration=task.configuration).aget()
+    backend = Backend(configuration=task.configuration)
 
     # Create Agno agent instance
-    agno_args = await xpander_agent.aget_args(task=task)
+    agno_args = await backend.aget_args(task=task)
     agno_agent = Agent(**agno_args)
 
     # Run the agent

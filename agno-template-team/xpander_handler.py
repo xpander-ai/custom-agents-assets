@@ -1,21 +1,21 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-from xpander_sdk import Task, on_task, Agents, OutputFormat, Tokens
+from xpander_sdk import Task, on_task, Backend, OutputFormat, Tokens
 from pydantic import BaseModel
 from agno.team import Team
 
 @on_task
 async def my_agent_handler(task: Task):
     # Get xpander agent details
-    xpander_agent = await Agents(configuration=task.configuration).aget()
+    backend = Backend(configuration=task.configuration)
 
-    # Create Agno team instance
-    agno_args = await xpander_agent.aget_args(task=task)
-    agno_team = Team(**agno_args)
+    # Create Agno agent instance
+    agno_args = await backend.aget_args(task=task)
+    agno_agent = Team(**agno_args)
 
-    # Run the team
-    result = await agno_team.arun(input=task.to_message(), files=task.get_files(), images=task.get_images())
+    # Run the agent
+    result = await agno_agent.arun(input=task.to_message(), files=task.get_files(), images=task.get_images())
 
     # in case of structured output, return as stringified json
     if task.output_format == OutputFormat.Json and isinstance(result.content, BaseModel):
