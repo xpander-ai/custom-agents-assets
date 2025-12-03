@@ -1,11 +1,40 @@
-FROM python:3.11-slim
+# Use Alpine-based Python image
+FROM python:3.12-alpine AS builder
 
-WORKDIR /app
+# Set working directory
+WORKDIR /usr/src/app
 
-COPY requirements.txt .
+# Install dependencies (including Node.js and npm directly)
+RUN apk add --no-cache \
+    curl \
+    bash \
+    gcc \
+    g++ \
+    libffi-dev \
+    musl-dev \
+    openssl-dev \
+    make \
+    python3-dev \
+    rust \
+    cargo \
+    git \
+    nodejs \
+    npm \
+    libpq \
+    ca-certificates
 
-RUN pip install --no-cache-dir -r requirements.txt
-
+# Copy app files
 COPY . .
 
-CMD ['python', '-u', 'xpander_handler.py']
+# Create and activate virtualenv
+RUN python3 -m venv .venv
+
+# Add virtual environment to PATH
+ENV PATH="/usr/src/app/.venv/bin:$PATH"
+
+# Install Python dependencies
+RUN pip install --no-cache-dir --upgrade pip && \
+    make install
+
+# Run the xpander handler
+CMD ["python", "xpander_handler.py"]
