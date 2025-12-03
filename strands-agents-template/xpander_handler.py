@@ -2,8 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-from xpander_sdk import Task, on_task, Agents, Configuration, OutputFormat, Tokens
-from pydantic import BaseModel
+from xpander_sdk import Task, on_task, Agents, OutputFormat
 from strands import Agent
 from strands.models.openai import OpenAIModel
 
