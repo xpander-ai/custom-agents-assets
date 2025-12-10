@@ -2,8 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-from xpander_sdk import Task, on_task, Agents, Configuration, OutputFormat, Tokens
-from pydantic import BaseModel
+from xpander_sdk import Task, on_task, Agents
 from google.adk.models.lite_llm import LiteLlm
 from google.adk.agents import Agent
 from google.adk.runners import Runner
@@ -52,16 +51,6 @@ async def my_agent_handler(task: Task):
     ):
         if event.is_final_response() and event.content and event.content.parts:
             final_answer = event.content.parts[0].text
-
-    # in case of structured output, return as stringified json
-    if task.output_format == OutputFormat.Json:
-        try:
-            import json
-            parsed = json.loads(final_answer)
-            if isinstance(parsed, dict):
-                final_answer = json.dumps(parsed)
-        except:
-            pass
 
     task.result = final_answer
 

@@ -8,8 +8,7 @@ from nat.cli.register_workflow import register_function
 from nat.data_models.component_ref import LLMRef
 from nat.data_models.function import FunctionBaseConfig
 
-from xpander_sdk import Backend, OutputFormat, Tokens
-from pydantic import BaseModel
+from xpander_sdk import Backend, Tokens
 from agno.team import Team
 from loguru import logger
 
@@ -32,10 +31,6 @@ async def xpander_nemo_agent_function(config: XpanderAgentConfig, builder: Build
             
             agno_agent = Team(**agno_args)
             result = await agno_agent.arun(input=task.to_message(),files=task.get_files(), images=task.get_images())
-            
-            # in case of structured output, return as stringified json
-            if task.output_format == OutputFormat.Json and isinstance(result.content, BaseModel):
-                result.content = result.content.model_dump_json()
             
             task.result = result.content
             

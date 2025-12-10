@@ -2,8 +2,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-from xpander_sdk import Task, on_task, Agents, Configuration, OutputFormat, Tokens
-from pydantic import BaseModel
+from xpander_sdk import Task, on_task, Agents
 from agents import Agent, Runner
 
 @on_task
@@ -23,14 +22,6 @@ async def my_agent_handler(task: Task):
 
     # in case of structured output, return as stringified json
     task_result = result.final_output
-    if task.output_format == OutputFormat.Json:
-        try:
-            import json
-            parsed = json.loads(task_result)
-            if isinstance(parsed, dict):
-                task_result = json.dumps(parsed)
-        except:
-            pass
 
     task.result = task_result
 
