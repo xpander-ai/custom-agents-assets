@@ -20,6 +20,6 @@ async def my_agent_handler(task: Task):
 
     # report execution metrics
     task.tokens = Tokens(prompt_tokens=result.metrics.input_tokens, completion_tokens=result.metrics.output_tokens)
-    task.used_tools = [tool.tool_name for tool in result.tools]
+    task.used_tools = [tool.tool_name for tool in (result.tools or [])]
 
     return task
