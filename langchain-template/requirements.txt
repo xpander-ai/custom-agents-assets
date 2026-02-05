@@ -6,3 +6,5 @@ langchain-core
 xpander-sdk
 openai
 anthropic
+azure-ai-inference
+aiohttp

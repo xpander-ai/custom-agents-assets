@@ -3,3 +3,5 @@ strands-agents
 xpander-sdk
 openai
 anthropic
+azure-ai-inference
+aiohttp

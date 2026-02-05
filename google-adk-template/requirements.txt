@@ -5,3 +5,5 @@ xpander-sdk
 openai
 anthropic
 litellm
+azure-ai-inference
+aiohttp
