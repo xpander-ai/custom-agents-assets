@@ -1,6 +1,5 @@
 python-dotenv
-agno==2.3.26
-agno[all]==2.3.26
+agno==2.5.9
 xpander-sdk[agno]
 openai
 anthropic
