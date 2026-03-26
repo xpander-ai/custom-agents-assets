@@ -36,5 +36,7 @@ ENV PATH="/usr/src/app/.venv/bin:$PATH"
 RUN pip install --no-cache-dir --upgrade pip && \
     make install
 
+EXPOSE 59321
+
 # Run the xpander handler
 CMD ["python", "xpander_handler.py"]
