@@ -40,8 +40,12 @@ async def my_agent_handler(task: Task):
                 data=event.content,
             )
 
-    # Yield final TaskFinished event
+    # Yield final TaskFinished event with tokens
     task.result = result.content if result else "Execution completed"
+    if task.result:
+        task.tokens = Tokens(prompt_tokens=result.metrics.input_tokens, completion_tokens=result.metrics.output_tokens)
+        task.used_tools = [tool.tool_name for tool in (result.tools or [])]
+    
     yield TaskUpdateEvent(
         type=TaskUpdateEventType.TaskFinished,
         task_id=task.id,
