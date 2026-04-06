@@ -10,7 +10,7 @@ authors = [{name = "xpander.ai", email = "info@xpander.ai"}]
 requires-python = ">=3.11"
 dependencies = [
     "python-dotenv",
-    "agno==2.5.9",
+    "agno==2.5.14",
     "xpander-sdk[agno]", 
     "openai",
     "anthropic",
